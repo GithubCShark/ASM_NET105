@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ASM_PS12496_NET105.Controllers
 {
-    public class MonAnController : Controller
+    public class MonAnController : BaseController
     {
         private readonly IWebHostEnvironment _webHostEnviroment;
         private IMonAnSvc _monAnSvc;

@@ -21,5 +21,11 @@ namespace ASM_PS12496_NET105.Models
         public DbSet<MonAn> MonAns { get; set; }
 
         public DbSet<Nguoidung> Nguoidungs { get; set; }
+
+        public DbSet<Donhang> Donhangs { get; set; }
+
+        public DbSet<Khachhang> Khachhangs { get; set; }
+
+        public DbSet<DonhangChitiet> DonhangChitiets { get; set; }
     }
 }

@@ -29,6 +29,9 @@ namespace ASM_PS12496_NET105
         {
             services.AddControllersWithViews();
 
+            services.AddDistributedMemoryCache();
+            services.AddSession(option => { option.IdleTimeout = TimeSpan.FromMinutes(30); });
+
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -37,6 +40,8 @@ namespace ASM_PS12496_NET105
             services.AddTransient<IMonAnSvc, MonAnSvc>();
 
             services.AddTransient<IUploadHelper, UploadHelper>();
+
+            services.AddTransient<INguoidungSvc, NguoidungSvc>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +59,8 @@ namespace ASM_PS12496_NET105
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 
