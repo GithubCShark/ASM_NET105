@@ -19,6 +19,8 @@ namespace ASM_PS12496_NET105.Constant
         {
             public const string KH_Email = "KH_Email";
             public const string KH_FullName = "KH_FullName";
+            public const string Valid = "Valid";
+            public const string KhachhangContext = "KhachhangContext";
         }
     }
 }

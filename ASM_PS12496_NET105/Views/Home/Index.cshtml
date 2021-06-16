@@ -1,8 +1,94 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<ASM_PS12496_NET105.Models.MonAn>
+@{
+    Layout = "~/Views/Shared/_WebLayout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .list-product {
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .product {
+        margin-top: 10px;
+        margin-right: 10px;
+        width: 205px;
+    }
+
+    .img {
+        width: 150px;
+        display: block;
+        margin: auto;
+    }
+
+    .title {
+        color: #0e0e0e;
+        display: block;
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+        height: 60px;
+    }
+
+    .field-price {
+        font-size: 24px;
+        color: #d50000;
+        margin-bottom: 15px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .viewProduct, .addProduct {
+        border: 0;
+        font-weight: 700;
+        padding: 9px 5px;
+        background: #ffd800;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        display: block;
+        width: 186px;
+        margin: 0 auto;
+        color: #0e0e0e;
+    }
+
+    .addProduct {
+        margin-left: 2px;
+    }
+</style>
+
+
+<div class="list-product">
+    @foreach (var item in Model)
+    {
+        <div class="product">
+            <img src="~/images/monan/@item.Hinh" class="img-responsive" />
+            <span class="title">@item.Name</span>
+            <div class="field-price">@item.Gia</div>
+            <a class="addProduct text-center" href="javascript:addCart(@item.MonAnID);">
+                Add order <img id="imgBusy_@item.MonAnID" src="~/images/busy.gif" style="display:none" />
+            </a>
+        </div>
+    }
 </div>
+
+<script>
+    function addCart(id) {
+        $("#imgCart").alert("src", '/images/cartA.png');
+        $("#imgBusy_" + id).show();
+        setTimeout(function () {
+            $.ajax({
+                url: "/Home/AddCart?Id=" + id,
+                type: "Post",
+                success: function (result) {
+                    alert(result);
+                },
+                error: function (e) {
+                    alert(this.url);
+                }
+            });
+            $("#imgBusy_" + id).hide();
+        }, 500);
+    }
+</script>

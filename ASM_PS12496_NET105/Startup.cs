@@ -42,6 +42,12 @@ namespace ASM_PS12496_NET105
             services.AddTransient<IUploadHelper, UploadHelper>();
 
             services.AddTransient<INguoidungSvc, NguoidungSvc>();
+
+            services.AddTransient<IKhachhangSvc, KhachhangSvc>();
+
+            services.AddTransient<IDonhangSvc, DonhangSvc>();
+
+            services.AddTransient<IDonhangChitietSvc, DonhangChitietSvc>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

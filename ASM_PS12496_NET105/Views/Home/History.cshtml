@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ASM_PS12496_NET105.Models.Donhang>
+
+@{
+    Layout = "~/Views/Shared/_WebLayout.cshtml";
+}
+
+<h1>History</h1>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ngaydat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tongtien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangthaiDonhang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ghichu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Khachhang)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ngaydat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tongtien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangthaiDonhang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ghichu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Khachhang.ConfirmPassword)
+            </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.DonhangID">Edit</a> |*@
+                <a asp-action="Details" asp-route-id="@item.DonhangID">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index">Quay lại</a>
+</div>

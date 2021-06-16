@@ -26,6 +26,12 @@ namespace ASM_PS12496_NET105.Models
         [RegularExpression(@"^\(?([0-9]{3})[-. ]?([0-9]{4})[-. ]?([0-9]{3})$", ErrorMessage = "Số điện thoại không hợp lệ.")]
         public string PhoneNumber { get; set; }
 
+        [Required(ErrorMessage = "Bạn cần nhập Email")]
+        [Column(TypeName = "varchar(50)"), MaxLength(50)]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "E-mail không hợp lệ")]
+        public string Email { get; set; }
+
         [Required(ErrorMessage = "Bạn cần nhập mật khẩu."), Display(Name = "Mật khẩu")]
         [Column(TypeName = "varchar(50)"), MaxLength(50)]
         [DataType(DataType.Password)]

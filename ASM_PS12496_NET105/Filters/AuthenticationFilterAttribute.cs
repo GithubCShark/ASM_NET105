@@ -34,4 +34,28 @@ namespace ASM_PS12496_NET105.Filters
             base.OnActionExecuting(filterContext);
         }
     }
+
+    public class AuthenticationFilterAttribute_KH : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filtercontext)
+        {
+            Controller controller = filtercontext.Controller as Controller;
+            var session = filtercontext.HttpContext.Session;
+            string KH_Email = filtercontext.HttpContext.Session.GetString(SessionKey.Khachhang.KH_Email);
+            var sessionStatus = ((KH_Email != null && KH_Email != "") ? true : false);
+            if (controller != null)
+            {
+                if (session == null || !sessionStatus)
+                {
+                    filtercontext.Result = new RedirectToRouteResult(
+                            new RouteValueDictionary
+                            {
+                                {"controller", "Home" },
+                                {"action", "Login" }
+                            });
+                }
+            }
+            base.OnActionExecuting(filtercontext);
+        }
+    }
 }

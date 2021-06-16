@@ -24,12 +24,17 @@ namespace ASM_PS12496_NET105.Controllers
             _nguoidungSvc = nguoidungSvc;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public IActionResult Login(string returnUrl)
         {
             string userName = HttpContext.Session.GetString(SessionKey.Nguoidung.UserName);
             if (userName != null && userName != "")
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Admin");
             }
 
             ViewLogin login = new ViewLogin();
@@ -49,7 +54,8 @@ namespace ASM_PS12496_NET105.Controllers
                     HttpContext.Session.SetString(SessionKey.Nguoidung.UserName, nguoidung.UserName);
                     HttpContext.Session.SetString(SessionKey.Nguoidung.FullName, nguoidung.FullName);
                     HttpContext.Session.SetString(SessionKey.Nguoidung.NguoidungContext, JsonConvert.SerializeObject(nguoidung));
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
+
+                    return RedirectToAction(nameof(Index), "Admin");
                 }
             }
             return View(viewLogin);
@@ -59,8 +65,11 @@ namespace ASM_PS12496_NET105.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
-            HttpContext.Session.Clear();
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            HttpContext.Session.Remove(SessionKey.Nguoidung.UserName);
+            HttpContext.Session.Remove(SessionKey.Nguoidung.FullName);
+            HttpContext.Session.Remove(SessionKey.Nguoidung.NguoidungContext);
+
+            return RedirectToAction(nameof(Index), "Admin");
         }
     }
 }

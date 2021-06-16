@@ -41,5 +41,7 @@ namespace ASM_PS12496_NET105.Models
         public string Ghichu { get; set; }
 
         public Khachhang Khachhang { get; set; }
+
+        public List<DonhangChitiet> DonhangChitiets { get; set; }
     }
 }
