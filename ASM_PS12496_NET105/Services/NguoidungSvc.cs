@@ -38,6 +38,7 @@ namespace ASM_PS12496_NET105.Services
             try
             {
                 nguoidung.Password = _mahoaHelper.Mahoa(nguoidung.Password);
+                nguoidung.ConfirmPassword = nguoidung.Password;
                 _context.Add(nguoidung);
                 _context.SaveChanges();
                 ret = nguoidung.NguoidungID;

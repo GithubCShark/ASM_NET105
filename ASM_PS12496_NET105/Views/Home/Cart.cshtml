@@ -11,16 +11,16 @@
 @{ string email = Context.Session.GetString(SessionKey.Khachhang.KH_Email);}
 @{ string fullName = Context.Session.GetString(SessionKey.Khachhang.KH_FullName);}
 
-<h1>Cart</h1>
+<h1>Giỏ hàng</h1>
 
 <table class="table">
     <tr>
-        <th>STT</th>
-        <th>Title</th>
-        <th>Image</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Total</th>
+        <th>Thứ tự</th>
+        <th>Tên</th>
+        <th>Hình ảnh</th>
+        <th>Số lượng</th>
+        <th>Đơn giá</th>
+        <th>Thành tiền</th>
         <th></th>
     </tr>
     @{ 
@@ -38,23 +38,27 @@
                 <td>@item.MonAn.Name</td>
                 <td><img src="~/images/monan/@item.MonAn.Hinh" style="width:150px" /></td>
                 <td><input  type="number" id="@txt_Id" value="@item.Quantity"/></td>
-                <td id="tdGia_@iD">@item.MonAn.Gia</td>
-                <td id="tdTien_@iD">@totalSub</td>
+                <td id="tdGia_@iD">@String.Format("{0:n0}", @item.MonAn.Gia)</td>
+                <td id="tdTien_@iD">@String.Format("{0:n0}", @totalSub)</td>
                 <td>
-                    <a href="javascript:updateCart(@iD);">Update</a>
-                    | <a href="javascript:delCart(@iD);">Delete</a>
+                    <a class="btn btn-primary" href="javascript:updateCart(@iD);">
+                        <i class="fas fa-pen-alt"></i>
+                    </a>
+                    <a class="btn btn-danger" href="javascript:delCart(@iD);">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
                 </td>
             </tr>
         }
     }
 </table>
 <p>
-    <div>Tổng tiền: <span id="spTotal">@total</span></div>
+    <div>Tổng tiền: <span id="spTotal">@String.Format("{0:n0}", @total) VNĐ</span></div>
 </p>
 <p>
     @if (email != null && email != "")
     {
-        <a class="addProduct" href="javascript:orderCart(true);">Đặt hàng</a>
+        <a class="addProduct btn btn-danger" href="javascript:orderCart(true);">Đặt hàng</a>
     }
     else
     {
@@ -64,6 +68,25 @@
 </p>
 
 <script>
+    function delCart(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Home/DeleteCart",
+            data: {
+                id: id,
+            },
+            success: function (result) {
+                $("#tr_" + id).hide();
+                $("#spTotal").html(result);
+
+                alert('Xóa thành công.');
+                if (result == "0") {
+                    $("#imgCart").attr("src", '/images/cart.png');
+                }
+            }
+        });
+    }
+
     function updateCart(id) {
         var soluong = $("#txtQuantity_" + id).val();
         var gia = $("#tdGia_" + id).html();

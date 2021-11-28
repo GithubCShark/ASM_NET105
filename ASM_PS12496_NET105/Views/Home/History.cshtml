@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_WebLayout.cshtml";
 }
 
-<h1>History</h1>
+<h1>Đơn hàng</h1>
 
 @*<p>
     <a asp-action="Create">Create New</a>
@@ -12,6 +12,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Khachhang.PhoneNumber)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Ngaydat)
             </th>
@@ -24,15 +27,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Ghichu)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Khachhang)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Khachhang.PhoneNumber)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ngaydat)
             </td>
@@ -46,11 +49,8 @@
                 @Html.DisplayFor(modelItem => item.Ghichu)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Khachhang.ConfirmPassword)
-            </td>
-            <td>
                 @*<a asp-action="Edit" asp-route-id="@item.DonhangID">Edit</a> |*@
-                <a asp-action="Details" asp-route-id="@item.DonhangID">Details</a>
+                <a asp-action="Details" asp-route-id="@item.DonhangID">Chi tiết</a>
             </td>
         </tr>
 }

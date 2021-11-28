@@ -290,8 +290,6 @@ namespace ASM_PS12496_NET105.Controllers
             return BadRequest();
         }
 
-
-
         [NonAction]
         private double Tongtien()
         {
@@ -308,6 +306,22 @@ namespace ASM_PS12496_NET105.Controllers
             return total;
         }
 
+        [AuthenticationFilterAttribute_KH]
+        public ActionResult Details(int id)
+        {
+            return View(_donhangSvc.GetDonhang(id));
+        }
+
+        [AuthenticationFilterAttribute_KH]
+        public IActionResult History()
+        {
+            string KH_Email = HttpContext.Session.GetString(SessionKey.Khachhang.KH_FullName);
+            if (KH_Email == null || KH_Email == "")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View(_donhangSvc.GetDonhangAll());
+        }
 
         public IActionResult Privacy()
         {

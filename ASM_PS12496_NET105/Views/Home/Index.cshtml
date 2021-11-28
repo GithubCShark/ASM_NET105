@@ -65,9 +65,9 @@
         <div class="product">
             <img src="~/images/monan/@item.Hinh" class="img-responsive" />
             <span class="title">@item.Name</span>
-            <div class="field-price">@item.Gia</div>
+            <div class="field-price">@String.Format("{0:n0}", @item.Gia) đ</div>
             <a class="addProduct text-center" href="javascript:addCart(@item.MonAnID);">
-                Add order <img id="imgBusy_@item.MonAnID" src="~/images/busy.gif" style="display:none" />
+               <i class="fas fa-cart-arrow-down"></i> Thêm vào giỏ <img id="imgBusy_@item.MonAnID" src="~/images/busy.gif" style="display:none" />
             </a>
         </div>
     }
@@ -81,8 +81,8 @@
             $.ajax({
                 url: "/Home/AddCart?Id=" + id,
                 type: "Post",
-                success: function (result) {
-                    alert(result);
+                success: function () {
+                    alert('Đã thêm vào giỏ hàng.');
                 },
                 error: function (e) {
                     alert(this.url);

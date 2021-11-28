@@ -48,6 +48,8 @@ namespace ASM_PS12496_NET105
             services.AddTransient<IDonhangSvc, DonhangSvc>();
 
             services.AddTransient<IDonhangChitietSvc, DonhangChitietSvc>();
+
+            services.AddRazorPages().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,7 +78,7 @@ namespace ASM_PS12496_NET105
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Admin}/{action=Index}/{id?}");
             });
         }
     }
